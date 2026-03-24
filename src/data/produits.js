@@ -1,5 +1,4 @@
 export const products = [
-  // Électronique
   {
     id: 1,
     name: 'MacBook Pro 14"',

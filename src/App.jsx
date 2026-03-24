@@ -1,15 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import NavBarre from "./components/NavBarre";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
-import Footer from "./components/Footer";
 import ProdDetail from "./pages/ProdDetail";
 import { useState } from "react";
 import Layout from "./components/Layout";
+import Card from "./pages/Cart";
 
-function App() {
+export default function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (prodId) => {
@@ -26,8 +25,21 @@ function App() {
     }
   };
 
+  const deleteCartProd = (idProduct) => {
+    setCartItems(cartItems.filter((item) => item.id != idProduct));
+  };
+
   const totalPanier = cartItems.reduce((sum, item) => sum + item.quantite, 0);
 
+  const updateQuantity = (idProduct, change) => {
+    setCartItems(
+      cartItems.map((item) =>
+        item.id == idProduct
+          ? { ...item, quantite: Math.max(1, item.quantite + change) }
+          : item,
+      ),
+    );
+  };
   return (
     <>
       <BrowserRouter>
@@ -39,11 +51,19 @@ function App() {
               path="/product/:id/detail"
               element={<ProdDetail addToCart={addToCart} />}
             />
+            <Route
+              path="/cart"
+              element={
+                <Card
+                  cartItems={cartItems}
+                  deleteCartProd={deleteCartProd}
+                  updateQuantity={updateQuantity}
+                />
+              }
+            />
           </Routes>
         </Layout>
       </BrowserRouter>
     </>
   );
 }
-
-export default App;
