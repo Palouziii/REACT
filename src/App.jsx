@@ -7,6 +7,8 @@ import ProdDetail from "./pages/ProdDetail";
 import { useState } from "react";
 import Layout from "./components/Layout";
 import Card from "./pages/Cart";
+import { products } from "./data/produits";
+import Checkout from "./pages/CheckOut";
 
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -60,6 +62,10 @@ export default function App() {
                   updateQuantity={updateQuantity}
                 />
               }
+            />
+            <Route 
+              path="/checkout" 
+              element={<Checkout cartItems={cartItems} products={products} />} 
             />
           </Routes>
         </Layout>

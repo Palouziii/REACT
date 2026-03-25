@@ -21,6 +21,10 @@ export default function NavBarre({ cart }) {
             {" "}
             🛒 Cart <span className="text-primary"> {cart} </span>
           </Link>
+          <Link className="link" to="/checkout">
+            {" "}
+            💵 CheckOut <span className="text-primary"></span>
+          </Link>
         </nav>
       </header>
     </>
